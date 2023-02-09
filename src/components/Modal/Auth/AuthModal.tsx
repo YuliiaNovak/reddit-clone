@@ -1,15 +1,12 @@
-import { AuthModalState } from "@/atoms/AuthModalAtom";
+import { AuthModalState } from "@/atoms/authModalAtom";
 import {
-   useDisclosure,
-   Button,
+   Flex,
    Modal,
-   ModalOverlay,
+   ModalBody,
+   ModalCloseButton,
    ModalContent,
    ModalHeader,
-   ModalCloseButton,
-   ModalBody,
-   ModalFooter,
-   Flex,
+   ModalOverlay,
    Text,
 } from "@chakra-ui/react";
 import React from "react";

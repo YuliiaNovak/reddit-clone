@@ -1,7 +1,9 @@
-import { AuthModalState } from "@/atoms/AuthModalAtom";
+import { AuthModalState } from "@/atoms/authModalAtom";
 import { Input, Button, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../../firebase/clientApp";
 
 const SignUp: React.FC = () => {
    const setAuthModalState = useSetRecoilState(AuthModalState);
@@ -10,8 +12,25 @@ const SignUp: React.FC = () => {
       password: "",
       confirmPassword: "",
    });
+   const [error, setError] = useState("");
+   const [createUserWithEmailAndPassword, user, loading, userError] =
+      useCreateUserWithEmailAndPassword(auth);
 
-   const onSubmit = () => {};
+   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (error) setError("");
+      if (!signUpForm.email.includes("@")) {
+         return setError("Please enter a valid email");
+      }
+      if (signUpForm.password.length < 6) {
+         return setError("Password must be at least 6 characters long");
+      }
+      if (signUpForm.password !== signUpForm.confirmPassword) {
+         return setError("Passwords do not match");
+      }
+
+      createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);
+   };
 
    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSignUpForm((prev) => ({
@@ -82,7 +101,19 @@ const SignUp: React.FC = () => {
             }}
             bg="grey.500"
          />
-         <Button type="submit" width="100%" height="36px" mt={2} mb={2}>
+         {error && (
+            <Text textAlign="center" color="red" fontSize="10pt">
+               {error}
+            </Text>
+         )}
+         <Button
+            type="submit"
+            width="100%"
+            height="36px"
+            mt={2}
+            mb={2}
+            isLoading={loading}
+         >
             Sign Up
          </Button>
          <Flex fontSize="9pt" justifyContent="center">
