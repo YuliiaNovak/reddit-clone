@@ -69,6 +69,7 @@ const Icons: React.FC = () => {
                <Icon as={IoNotificationsOutline} fontSize={20} />
             </Flex>
             <Flex
+               display={{ base: "none", md: "flex" }}
                mr={1.5}
                ml={1.5}
                padding={1}
