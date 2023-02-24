@@ -14,11 +14,12 @@ const Login: React.FC<LoginProps> = () => {
       email: "",
       password: "",
    });
-   const [ signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+   const [signInWithEmailAndPassword, user, loading, error] =
+      useSignInWithEmailAndPassword(auth);
 
    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      signInWithEmailAndPassword(loginForm.email, loginForm.password)
+      e.preventDefault();
+      signInWithEmailAndPassword(loginForm.email, loginForm.password);
    };
 
    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,12 +71,38 @@ const Login: React.FC<LoginProps> = () => {
             }}
             bg="grey.500"
          />
-         <Text textAlign='center' color='red' fontSize='10pt'>
-            {error && FIREBASE_ERRORS[error?.message as keyof typeof FIREBASE_ERRORS]}
+         <Text textAlign="center" color="red" fontSize="10pt">
+            {error &&
+               FIREBASE_ERRORS[error?.message as keyof typeof FIREBASE_ERRORS]}
          </Text>
-         <Button type="submit" width="100%" height="36px" mt={2} mb={2} isLoading={loading}>
+         <Button
+            type="submit"
+            width="100%"
+            height="36px"
+            mt={2}
+            mb={2}
+            isLoading={loading}
+         >
             Log In
          </Button>
+         <Flex justifyContent="center" mb={2}>
+            <Text fontSize="9pt" mr={1}>
+               Forgot your password?
+            </Text>
+            <Text
+               fontSize="9pt"
+               color="blue.500"
+               cursor="pointer"
+               onClick={() => {
+                  setAuthModalState((prev) => ({
+                     ...prev,
+                     view: "resetPassword",
+                  }));
+               }}
+            >
+               Reset
+            </Text>
+         </Flex>
          <Flex fontSize="9pt" justifyContent="center">
             <Text mr={1}>New here?</Text>
             <Text
