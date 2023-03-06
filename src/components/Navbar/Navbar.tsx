@@ -22,12 +22,12 @@ const Navbar: React.FC = () => {
             mr={{ base: 0, md: 2 }}
          >
             <Image
-               src="./images/redditFace.svg"
+               src="/images/redditFace.svg"
                alt="reddit logo"
                height="30px"
             />
             <Image
-               src="./images/redditText.svg"
+               src="/images/redditText.svg"
                alt="reddit logo"
                height="46px"
                display={{ base: "none", md: "unset" }}
