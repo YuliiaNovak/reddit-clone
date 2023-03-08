@@ -6,6 +6,7 @@ import { IoDocumentText, IoImageOutline } from "react-icons/io5";
 import { AiFillCloseCircle } from "react-icons/ai";
 import TabItem from "./TabItem";
 import TextInputs from "./PostForm/TextInputs";
+import ImageUpload from "./PostForm/ImageUpload";
 
 type NewPostFormProps = {};
 
@@ -48,7 +49,19 @@ const NewPostForm: React.FC<NewPostFormProps> = () => {
 
    const handleCreatePost = async () => {};
 
-   const onSelectImage = () => {};
+   const onSelectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const reader = new FileReader();
+
+      if (e.target.files?.[0]) {
+         reader.readAsDataURL(e.target.files[0]);
+      }
+
+      reader.onload = (readerEvent) => {
+         if (readerEvent.target?.result) {
+            setSelectedFile(readerEvent.target.result as string);
+         }
+      };
+   };
 
    const onTextChange = (
       e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -81,6 +94,14 @@ const NewPostForm: React.FC<NewPostFormProps> = () => {
                   handleCreatePost={handleCreatePost}
                   onChange={onTextChange}
                   loading={loading}
+               />
+            )}
+            {selectedTab === "Images & Video" && (
+               <ImageUpload
+                  onSelectImage={onSelectImage}
+                  selectedFile={selectedFile}
+                  setSelectedTab={setSelectedTab}
+                  setSelectedFile={setSelectedFile}
                />
             )}
          </Flex>
