@@ -15,10 +15,7 @@ const Header: React.FC<HeaderProps> = ({ communityData }) => {
    const isJoined = !!communityStateValue.mySnippets.find(
       (item) => item.communityId === communityData.id
    );
-   console.log(
-      "communityStateValue.mySnippets",
-      communityStateValue.mySnippets
-   );
+   console.log("communityStateValue", communityStateValue);
    return (
       <Flex direction="column" width="100%" height="146px">
          <Box height="50%" bg="blue.400" />
